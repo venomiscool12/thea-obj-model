@@ -7,6 +7,7 @@ import sys
 import time
 from threading import Thread
 import importlib.util
+import heapq
 
 
 class VideoStream:
@@ -268,15 +269,37 @@ while True:
             )  # Draw label text
 
     for i in range(len(object))
-        #Navigation system
-        def navigate(obstacles, current_position, goal):
-            if obstacles:
-             print("Obstacle detected! Finding a new path...")
-            return astar(grid, current_position, goal)
-            
-            else:
-                print("Path is clear. Moving forward...")
-                return goal
+        def navigate(grid, obstacles, current_position, goal):
+    """
+    Navigates from the current position to the goal, avoiding obstacles.
+    
+    Parameters:
+        grid (list of lists): The representation of the environment.
+        obstacles (set of tuples): Set of obstacle coordinates.
+        current_position (tuple): The current (x, y) position.
+        goal (tuple): The desired (x, y) destination.
+
+    Returns:
+        list of tuples: Path from current_position to goal.
+    """
+    if current_position in obstacles:
+        print("Obstacle detected at current position! Cannot proceed.")
+        return None
+
+    if any(goal == obs for obs in obstacles):
+        print("Goal is blocked by an obstacle! Cannot proceed.")
+        return None
+
+    if obstacles:
+        print("Obstacle detected! Finding a new path...")
+        return astar(grid, current_position, goal)
+    else:
+        print("Path is clear. Moving forward...")
+        return [goal]  # Direct movement if no obstacles
+
+# Example call (assuming astar is defined)
+# path = navigate(grid, obstacles, (0, 0), (4, 4))
+
     # Draw framerate in corner of frame
     cv2.putText(
         frame,
