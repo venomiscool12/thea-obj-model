@@ -20,7 +20,7 @@ name: theas
 
 on:
   push:
-    branches: ["with-coco-dataset"]
+    branches: ["with-coco dataset"]
 
 env:
   AZURE_FUNCTIONAPP_NAME: 'thea'   # set this to your function app name on Azure
